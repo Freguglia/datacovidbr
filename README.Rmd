@@ -1,0 +1,67 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "60%"
+)
+```
+
+# datacovidbr
+
+<!-- badges: start -->
+[![build status](https://travis-ci.org/Freguglia/datacovidbr.svg?branch=master)](https://travis-ci.org/Freguglia/datacovidbr)
+<!-- badges: end -->
+
+O `datacovidbr` é um pacote em R com o objetivo de facilitar a importação e leitura dos dados da COVID-19 de fontes brasileiras e mundiais, automatizando os mecanismos de análise desses dados em R. No momento os dados disponíveis são os do Ministério da Saúde (https://covid.saude.gov.br/) para dados brasileiros e os do repositório [CSSEGISandData/COVID-19](https://github.com/CSSEGISandData/COVID-19) mantido pela Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE).
+
+As funções importam os dados atualizados diretamente, assim você não precisa baixar os arquivos todos os dias e ler do seu próprio computador ou ter o trabalho de automatizar isso :) Também é feito algum pré-processamento para que a estrutura dos dados da `CSSEGISandData` fique mais parecida com a do Ministério da Saúde.
+
+## Instalação
+
+Pela alta demanda no momento no CRAN, que gera muita demora no processo de aceitação de novos pacotes e atualizações,  o `datacovidbr` será mantido apenas no Github. Para instalação de pacotes disponíveis no Github, basta utilizar a função abaixo:
+
+```{r, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("Freguglia/datacovidbr")
+```
+
+## Exemplo
+
+Os dados podem ser carregados com as funções `brMinisterioSaude()` e `CSSEGISandData()`:
+
+```{r example}
+library(datacovidbr)
+# Dados do Ministério da Saúde
+bra <- brMinisterioSaude()
+bra
+
+#Dados da CSSEGISandData
+wor <- CSSEGISandData()
+wor
+
+```
+
+Os `data.frames` já vem em um formato que pode ser utilizado com todas as outras ferramentas disponíveis em R, por exemplo, o `ggplot2`.
+
+```{r, warning = FALSE, message = FALSE}
+library(ggplot2)
+ggplot(bra, aes(x = data, y = casosNovos, group = estado, color = regiao)) +
+  geom_line() +
+  scale_x_date(limits = c(as.Date("2020-03-15"),NA))
+```
+
+## Contribuições e Dúvidas
+
+Caso queira contribuir de alguma forma, pode enviar um Pull Request ou abrir uma Issue caso tenha dúvidas. Contribuições podem ser em forma de
+  
+  * Sugestões em geral
+  * Melhorias no pré-processamento
+  * Inclusão de novas fontes para importar dados
+  * Reportar problemas encontrados
