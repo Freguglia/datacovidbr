@@ -2,8 +2,10 @@
 
 export(CSSEGISandData)
 export(brMinisterioSaude)
+export(brasilio)
 importFrom(dplyr,group_by)
 importFrom(dplyr,left_join)
 importFrom(dplyr,summarise)
 importFrom(glue,glue)
 importFrom(magrittr,"%>%")
+importFrom(tidyselect,starts_with)
