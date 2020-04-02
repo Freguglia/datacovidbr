@@ -15,7 +15,8 @@
 brMinisterioSaude <- function(silent = !interactive()){
   tm <- lubridate::now(tzone = "Brazil/East") - lubridate::days(1)
   dt <- format.Date(tm, format = "%Y%m%d")
-  df <- read.csv(glue("https://covid.saude.gov.br/assets/files/COVID19_{dt}.csv"), sep = ";")
+  df <- read.csv(glue("https://covid.saude.gov.br/assets/files/COVID19_{dt}.csv"), 
+                 sep = ";", stringsAsFactors = FALSE)
   df$data <- lubridate::as_date(as.character(df$data), format = "%d/%m/%y", tz = "Brazil/East")
   if(!silent) cat("Latest Update: ", as.character(max(df$data)), "\n")
   return(tibble::as_tibble(df))
