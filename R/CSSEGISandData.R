@@ -31,7 +31,7 @@ CSSEGISandData <- function(silent = FALSE){
   df_deaths$data <- lubridate::as_date(as.character(df_deaths$data),
                                        format = "%m.%d.%y", tz = "UTC")
   df_deaths <- df_deaths %>% group_by(Country.Region, data) %>%
-    summarise(obitosAcumulados = sum(obitosAcumulado, na.rm = TRUE))
+    summarise(obitosAcumulado = sum(obitosAcumulado, na.rm = TRUE))
   
   df_recovered <- read.csv("https://github.com/CSSEGISandData/COVID-19/raw/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv")
   df_recovered <- tidyr::pivot_longer(df_recovered, cols = starts_with("X"),
@@ -40,7 +40,7 @@ CSSEGISandData <- function(silent = FALSE){
   df_recovered$data <- lubridate::as_date(as.character(df_recovered$data),
                                           format = "%m.%d.%y", tz = "UTC")
   df_recovered <- df_recovered %>% group_by(Country.Region, data) %>%
-    summarise(recuperadosAcumulados = sum(recuperadosAcumulado, na.rm = TRUE))
+    summarise(recuperadosAcumulado = sum(recuperadosAcumulado, na.rm = TRUE))
   
   if(!silent) cat("Latest Update: ", as.character(max(df_recovered$data)), "\n")
   
