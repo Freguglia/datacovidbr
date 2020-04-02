@@ -12,9 +12,9 @@
 #' 
 #' @importFrom dplyr summarise group_by left_join
 #' @importFrom magrittr %>%
-#' @importFrom tidyr starts_with
+#' @importFrom tidyselect starts_with
 #' @export
-CSSEGISandData <- function(silent = FALSE){
+CSSEGISandData <- function(silent = !interactive()){
   df_cases <- read.csv("https://github.com/CSSEGISandData/COVID-19/raw/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv")
   df_cases <- tidyr::pivot_longer(df_cases, cols = starts_with("X"),
                                   names_to = "data", values_to = "casosAcumulados")
