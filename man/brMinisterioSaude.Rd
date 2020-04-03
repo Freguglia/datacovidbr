@@ -4,7 +4,7 @@
 \alias{brMinisterioSaude}
 \title{Brazilian Health Ministry COVID data}
 \usage{
-brMinisterioSaude(silent = FALSE)
+brMinisterioSaude(silent = !interactive())
 }
 \arguments{
 \item{silent}{\code{logical} indicating if messages should be hidden.}
