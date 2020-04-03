@@ -15,5 +15,5 @@ brasilio <- function(silent = !interactive()){
   mun$date <- as.Date(mun$date)
   mun$is_last <- ifelse(mun$is_last == "True", TRUE, FALSE)
   if(!silent) cat("Latest Update: ", as.character(max(mun$date)), "\n")
-  return(as_tibble(mun))
+  return(tibble::as_tibble(mun))
 }
