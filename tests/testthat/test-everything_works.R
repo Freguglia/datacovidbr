@@ -3,7 +3,8 @@ test_that("Ministério da Saúde", {
 })
 
 test_that("JHU", {
-  expect_is(CSSEGISandData(), "tbl_df")
+  expect_is(CSSEGISandData(TRUE), "tbl_df")
+  expect_is(CSSEGISandData(FALSE), "tbl_df")
 })
 
 test_that("Ministério da Saúde", {
