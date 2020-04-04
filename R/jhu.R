@@ -27,7 +27,7 @@ CSSEGISandData <- function(by_country = TRUE, silent = !interactive()){
                                       format = "%m.%d.%y", tz = "UTC")
   if(by_country){
     df_cases <- df_cases %>% group_by(Country.Region, data) %>%
-      summarise(Lat = mean(Lat), Long = mean(Long),
+      summarise(Lat = mean(Lat, na.rm = TRUE), Long = mean(Long, na.rm = TRUE),
                 casosAcumulados = sum(casosAcumulados, na.rm = TRUE))
   }
   
@@ -41,7 +41,7 @@ CSSEGISandData <- function(by_country = TRUE, silent = !interactive()){
   if(by_country){
     df_deaths <- df_deaths %>% group_by(Country.Region, data) %>%
       summarise(obitosAcumulado = sum(obitosAcumulado, na.rm = TRUE),
-                Lat = mean(Lat), Long = mean(Long))
+                Lat = mean(Lat, na.rm = TRUE), Long = mean(Long, na.rm = TRUE))
   }
   
   df_recovered <- read.csv("https://github.com/CSSEGISandData/COVID-19/raw/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv",
@@ -54,7 +54,7 @@ CSSEGISandData <- function(by_country = TRUE, silent = !interactive()){
   if(by_country){
     df_recovered <- df_recovered %>% group_by(Country.Region, data) %>%
       summarise(recuperadosAcumulado = sum(recuperadosAcumulado, na.rm = TRUE),
-                Lat = mean(Lat), Long = mean(Long))
+                Lat = mean(Lat, na.rm = TRUE), Long = mean(Long, na.rm = TRUE))
   }
   
   if(!silent) cat("Latest Update: ", as.character(max(df_recovered$data)), "\n")
