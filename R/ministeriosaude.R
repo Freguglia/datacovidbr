@@ -11,6 +11,7 @@
 #' @return A `tibble` object.
 #' 
 #' @importFrom glue glue
+#' @importFrom methods is
 #' @export
 brMinisterioSaude <- function(silent = !interactive()){
   shift <- 0

@@ -7,11 +7,11 @@
 CSSEGISandData(by_country = TRUE, silent = !interactive())
 }
 \arguments{
-\item{silent}{\code{logical} indicating if messages should be hidden.}
-
-\item{countries_only}{If \code{TRUE} the values are summed over the \code{Province.State} variable
+\item{by_country}{If \code{TRUE} the values are summed over the \code{Province.State} variable
 for each \code{data} and \code{Country.Region}. In this case, \code{Lat} and \code{Long} are reported as the
 mean value of all rows for that \code{Country.Region} value.}
+
+\item{silent}{\code{logical} indicating if messages should be hidden.}
 }
 \value{
 A \code{tibble} object.

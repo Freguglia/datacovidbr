@@ -7,7 +7,7 @@
 #' `tibble` object.
 #' 
 #' @inheritParams brMinisterioSaude
-#' @param countries_only If `TRUE` the values are summed over the `Province.State` variable
+#' @param by_country If `TRUE` the values are summed over the `Province.State` variable
 #' for each `data` and `Country.Region`. In this case, `Lat` and `Long` are reported as the 
 #' mean value of all rows for that `Country.Region` value.
 #' 
