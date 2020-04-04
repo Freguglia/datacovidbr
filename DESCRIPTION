@@ -16,7 +16,7 @@ Imports:
     glue,
     lubridate,
     tibble,
-    tidyr,
+    tidyr (>= 1.0.0),
     tidyselect,
     magrittr,
     dplyr
