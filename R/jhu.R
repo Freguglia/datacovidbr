@@ -19,7 +19,7 @@
 #' @export
 CSSEGISandData <- function(by_country = TRUE, silent = !interactive()){
   df_cases <- read.csv("https://github.com/CSSEGISandData/COVID-19/raw/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv",
-                       stringsAsFactors = FALSE, encoding = "utf-8")
+                       stringsAsFactors = FALSE, encoding = "UTF-8")
   df_cases <- tidyr::pivot_longer(df_cases, cols = starts_with("X"),
                                   names_to = "data", values_to = "casosAcumulados")
   df_cases$data <- gsub("X", df_cases$data, replacement = "")
@@ -32,7 +32,7 @@ CSSEGISandData <- function(by_country = TRUE, silent = !interactive()){
   }
   
   df_deaths <- read.csv("https://github.com/CSSEGISandData/COVID-19/raw/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv",
-                        stringsAsFactors = FALSE, encoding = "utf-8")
+                        stringsAsFactors = FALSE, encoding = "UTF-8")
   df_deaths <- tidyr::pivot_longer(df_deaths, cols = starts_with("X"),
                                    names_to = "data", values_to = "obitosAcumulado")
   df_deaths$data <- gsub("X", df_deaths$data, replacement = "")
@@ -45,7 +45,7 @@ CSSEGISandData <- function(by_country = TRUE, silent = !interactive()){
   }
   
   df_recovered <- read.csv("https://github.com/CSSEGISandData/COVID-19/raw/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv",
-                           stringsAsFactors = FALSE, encoding = "utf-8")
+                           stringsAsFactors = FALSE, encoding = "UTF-8")
   df_recovered <- tidyr::pivot_longer(df_recovered, cols = starts_with("X"),
                                       names_to = "data", values_to = "recuperadosAcumulado")
   df_recovered$data <- gsub("X", df_recovered$data, replacement = "")

@@ -11,7 +11,7 @@
 #' @export
 brasilio <- function(silent = !interactive()){
   mun <- read.csv("https://brasil.io/dataset/covid19/caso?format=csv", 
-                  stringsAsFactors = FALSE, encoding = "utf-8")
+                  stringsAsFactors = FALSE, encoding = "UTF-8")
   mun$date <- as.Date(mun$date)
   mun$is_last <- ifelse(mun$is_last == "True", TRUE, FALSE)
   if(!silent) cat("Latest Update: ", as.character(max(mun$date)), "\n")
