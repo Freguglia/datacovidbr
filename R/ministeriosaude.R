@@ -21,7 +21,7 @@ brMinisterioSaude <- function(silent = !interactive()){
     df <- tryCatch({
       suppressWarnings(
         read.csv(glue("https://covid.saude.gov.br/assets/files/COVID19_{dt}.csv"), 
-                 sep = ";", stringsAsFactors = FALSE))
+                 sep = ";", stringsAsFactors = FALSE, encoding = "utf-8"))
     }, error = function(er) "not_found")
     shift <- shift + 1
   }
