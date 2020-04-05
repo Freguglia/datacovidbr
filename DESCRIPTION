@@ -20,6 +20,7 @@ Imports:
     tidyselect,
     magrittr,
     dplyr,
-    methods
+    methods,
+    httr
 Suggests: 
     testthat (>= 2.1.0)

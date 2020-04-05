@@ -1,8 +1,6 @@
 # datacovidbr 0.0.3
 
-* `brMinisterioSaude()` takes the download link from my personal page at 
-https://www.ime.unicamp.br/~ra137784/brMinisterioSaude since the previous 
-pattern no longer works.
+* `brMinisterioSaude()` rewritten because old source no longer works.
 
 # datacovidbr 0.0.2
 

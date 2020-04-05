@@ -12,18 +12,25 @@
 #' 
 #' @importFrom glue glue
 #' @importFrom methods is
+#' @importFrom httr GET add_headers content
 #' @export
 brMinisterioSaude <- function(silent = !interactive()){
   df <- "not_found"
-  link <- readChar("https://www.ime.unicamp.br/~ra137784/brMinisterioSaude", nchars = 500) %>% 
-    strsplit("\n") %>% unlist()
+  link <- GET("https://xx9p7hp1p7.execute-api.us-east-1.amazonaws.com/prod/PortalGeral",
+              add_headers("X-Parse-Application-Id" = 
+                            "unAFkcaNDeXajurGB7LChj8SgQYS2ptm")) %>%
+    content() %>%
+    '[['("results") %>%
+    '[['(1) %>%
+    '[['("arquivo") %>%
+    '[['("url")
   df <- tryCatch({
     suppressWarnings(
       read.csv(link, sep = ";", stringsAsFactors = FALSE, encoding = "UTF-8"))
   }, error = function(er) "not_found")
 
   if(!is(df, "data.frame")) stop("The file is not available at the previous address.
-                                 Consider updating the package.")
+                                 Consider updating the datacovidbr")
   df$data <- lubridate::as_date(as.character(df$data), format = "%d/%m/%y", tz = "Brazil/East")
   if(!silent) cat("Latest Update: ", as.character(max(df$data)), "\n")
   return(tibble::as_tibble(df))
