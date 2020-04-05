@@ -14,19 +14,16 @@
 #' @importFrom methods is
 #' @export
 brMinisterioSaude <- function(silent = !interactive()){
-  shift <- 0
   df <- "not_found"
-  while(shift < 3 & !is(df, "data.frame")){
-    tm <- lubridate::now(tzone = "Brazil/East") - lubridate::days(shift)
-    dt <- format.Date(tm, format = "%Y%m%d")
-    df <- tryCatch({
-      suppressWarnings(
-        read.csv(glue("https://covid.saude.gov.br/assets/files/COVID19_{dt}.csv"), 
-                 sep = ";", stringsAsFactors = FALSE, encoding = "UTF-8"))
-    }, error = function(er) "not_found")
-    shift <- shift + 1
-  }
-  if(!is(df, "data.frame")) stop("Unable to download file.")
+  link <- readChar("https://www.ime.unicamp.br/~ra137784/brMinisterioSaude", nchars = 500) %>% 
+    strsplit("\n") %>% unlist()
+  df <- tryCatch({
+    suppressWarnings(
+      read.csv(link, sep = ";", stringsAsFactors = FALSE, encoding = "UTF-8"))
+  }, error = function(er) "not_found")
+
+  if(!is(df, "data.frame")) stop("The file is not available at the previous address.
+                                 Consider updating the package.")
   df$data <- lubridate::as_date(as.character(df$data), format = "%d/%m/%y", tz = "Brazil/East")
   if(!silent) cat("Latest Update: ", as.character(max(df$data)), "\n")
   return(tibble::as_tibble(df))
