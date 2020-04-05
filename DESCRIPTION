@@ -1,6 +1,6 @@
 Package: datacovidbr
 Title: What the Package Does (One Line, Title Case)
-Version: 0.0.2.9000
+Version: 0.0.3.9000
 Authors@R: 
     person(given = "Victor",
            family = "Freguglia",
