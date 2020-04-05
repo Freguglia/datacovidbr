@@ -1,3 +1,9 @@
+# datacovidbr 0.0.3
+
+* `brMinisterioSaude()` takes the download link from my personal page at 
+https://www.ime.unicamp.br/~ra137784/brMinisterioSaude since the previous 
+pattern no longer works.
+
 # datacovidbr 0.0.2
 
 * Added a `NEWS.md` file to track changes to the package.
