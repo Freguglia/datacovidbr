@@ -31,7 +31,7 @@ brMinisterioSaude <- function(silent = !interactive()){
 
   if(!is(df, "data.frame")) stop("The file is not available at the previous address.
                                  Consider updating the datacovidbr")
-  df$data <- lubridate::as_date(as.character(df$data), format = "%d/%m/%y", tz = "Brazil/East")
-  if(!silent) cat("Latest Update: ", as.character(max(df$data)), "\n")
+  df$date <- lubridate::as_date(as.character(df$date), format = "%d/%m/%y", tz = "Brazil/East")
+  if(!silent) cat("Latest Update: ", as.character(max(df$date)), "\n")
   return(tibble::as_tibble(df))
 }
