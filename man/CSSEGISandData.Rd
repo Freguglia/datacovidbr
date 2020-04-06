@@ -2,9 +2,12 @@
 % Please edit documentation in R/jhu.R
 \name{CSSEGISandData}
 \alias{CSSEGISandData}
+\alias{CSSEGISandData_us}
 \title{Data from the \code{CSSEGISandData/COVID-19} repository}
 \usage{
 CSSEGISandData(by_country = TRUE, silent = !interactive())
+
+CSSEGISandData_us(silent = !interactive())
 }
 \arguments{
 \item{by_country}{If \code{TRUE} the values are summed over the \code{Province.State} variable

@@ -70,3 +70,30 @@ CSSEGISandData <- function(by_country = TRUE, silent = !interactive()){
              left_join(df_recovered, by = c("Province.State","Country.Region", "data", "Lat", "Long")))
   }
 }
+
+#' @rdname CSSEGISandData
+#' @export
+CSSEGISandData_us <- function(silent = !interactive()){
+  df_cases <- read.csv("https://github.com/CSSEGISandData/COVID-19/raw/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv",
+                       stringsAsFactors = FALSE, encoding = "UTF-8")
+  df_cases <- tidyr::pivot_longer(df_cases, cols = starts_with("X"),
+                                  names_to = "date", values_to = "casosAcumulados")
+  df_cases$date <- gsub("X", df_cases$date, replacement = "")
+  df_cases$date <- lubridate::as_date(as.character(df_cases$date),
+                                      format = "%m.%d.%y", tz = "UTC")
+  
+  df_deaths <- read.csv("https://github.com/CSSEGISandData/COVID-19/raw/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv",
+                        stringsAsFactors = FALSE, encoding = "UTF-8")
+  df_deaths <- tidyr::pivot_longer(df_deaths, cols = starts_with("X"),
+                                   names_to = "date", values_to = "obitosAcumulado")
+  df_deaths$date <- gsub("X", df_deaths$date, replacement = "")
+  df_deaths$date <- lubridate::as_date(as.character(df_deaths$date),
+                                       format = "%m.%d.%y", tz = "UTC")
+  
+  if(!silent) cat("Latest Update: ", as.character(max(df_cases$date)), "\n")
+  
+
+    return(df_cases %>%
+             left_join(df_deaths, by = c("UID", "iso2", "iso3", "code3", "FIPS", "Admin2", "Province_State",
+                                         "Country_Region", "Lat", "Long_", "date", "Combined_Key")))
+}
