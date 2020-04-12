@@ -32,6 +32,7 @@ brMinisterioSaude <- function(silent = !interactive()){
   if(!is(df, "data.frame")) stop("The file is not available at the previous address.
                                  Consider updating the datacovidbr")
   colnames(df)[1] <- "regiao"
+  colnames(df)[3] <- "date"
   df$date <- as.Date(df$date)
   if(!silent) cat("Latest Update: ", as.character(max(df$date)), "\n")
   return(tibble::as_tibble(df))
