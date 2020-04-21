@@ -21,6 +21,7 @@ Imports:
     magrittr,
     dplyr,
     methods,
-    httr
+    httr,
+    utils
 Suggests: 
     testthat (>= 2.1.0)
