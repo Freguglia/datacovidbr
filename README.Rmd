@@ -34,7 +34,7 @@ devtools::install_github("Freguglia/datacovidbr")
 
 ## Exemplo
 
-Os dados podem ser carregados com as funções `brMinisterioSaude()`, `brasilio()` e `CSSEGISandData()`:
+Os dados podem ser carregados com as funções `brMinisterioSaude()`, `brasilio()`, `CSSEGISandData()` e `infoGripe()`:
 
 ```{r example}
 library(datacovidbr)
@@ -56,7 +56,7 @@ Os `data.frames` já vem em um formato que pode ser utilizado com todas as outra
 
 ```{r, warning = FALSE, message = FALSE}
 library(ggplot2)
-ggplot(est, aes(x = data, y = casosNovos, group = estado, color = regiao)) +
+ggplot(est, aes(x = date, y = casosNovos, group = estado, color = regiao)) +
   geom_line() +
   scale_x_date(limits = c(as.Date("2020-03-15"),NA)) 
 ```

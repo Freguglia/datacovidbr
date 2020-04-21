@@ -41,15 +41,15 @@ devtools::install_github("Freguglia/datacovidbr")
 ## Exemplo
 
 Os dados podem ser carregados com as funções `brMinisterioSaude()`,
-`brasilio()` e `CSSEGISandData()`:
+`brasilio()`, `CSSEGISandData()` e `infoGripe()`:
 
 ``` r
 library(datacovidbr)
 # Dados do Ministério da Saúde
 est <- brMinisterioSaude()
 est
-#> # A tibble: 1,728 x 7
-#>    regiao estado data       casosNovos casosAcumulados obitosNovos
+#> # A tibble: 2,214 x 7
+#>    regiao estado date       casosNovos casosAcumulados obitosNovos
 #>    <chr>  <chr>  <date>          <int>           <int>       <int>
 #>  1 Norte  RO     2020-01-30          0               0           0
 #>  2 Norte  RO     2020-01-31          0               0           0
@@ -61,32 +61,32 @@ est
 #>  8 Norte  RO     2020-02-06          0               0           0
 #>  9 Norte  RO     2020-02-07          0               0           0
 #> 10 Norte  RO     2020-02-08          0               0           0
-#> # … with 1,718 more rows, and 1 more variable: obitosAcumulados <int>
+#> # … with 2,204 more rows, and 1 more variable: obitosAcumulados <int>
 
 # Dados do Brasil.io
 mun <- brasilio()
 mun
-#> # A tibble: 5,155 x 11
+#> # A tibble: 22,803 x 11
 #>    date       state city  place_type confirmed deaths is_last estimated_popul…
 #>    <date>     <chr> <chr> <chr>          <int>  <int> <lgl>              <int>
-#>  1 2020-04-03 AC    "Acr… city               9      0 TRUE               15256
-#>  2 2020-04-03 AC    "Por… city               1      0 TRUE               18504
-#>  3 2020-04-03 AC    "Rio… city              36      0 TRUE              407319
-#>  4 2020-04-03 AC    ""    state             46      0 TRUE              881935
-#>  5 2020-04-03 AL    "Imp… city               4      0 TRUE                  NA
-#>  6 2020-04-03 AL    "Mac… city              17      2 TRUE             1018948
-#>  7 2020-04-03 AL    "Mar… city               1      0 TRUE               51901
-#>  8 2020-04-03 AL    "Por… city               1      0 TRUE               20066
-#>  9 2020-04-03 AL    ""    state             23      2 TRUE             3337357
-#> 10 2020-04-03 AM    "Ano… city               1      0 TRUE               21010
-#> # … with 5,145 more rows, and 3 more variables: city_ibge_code <int>,
+#>  1 2020-04-20 AC    "Acr… city              12      0 TRUE               15256
+#>  2 2020-04-20 AC    "Buj… city               1      0 TRUE               10266
+#>  3 2020-04-20 AC    "Cru… city               5      0 TRUE               88376
+#>  4 2020-04-20 AC    "Plá… city              19      1 TRUE               19761
+#>  5 2020-04-20 AC    "Por… city               1      0 TRUE               18504
+#>  6 2020-04-20 AC    "Rio… city             136      7 TRUE              407319
+#>  7 2020-04-20 AC    "Sen… city               2      0 TRUE               23024
+#>  8 2020-04-20 AC    ""    state            176      8 TRUE              881935
+#>  9 2020-04-20 AL    "Ara… city               1      0 TRUE              231747
+#> 10 2020-04-20 AL    "Boc… city               1      0 TRUE               27281
+#> # … with 22,793 more rows, and 3 more variables: city_ibge_code <int>,
 #> #   confirmed_per_100k_inhabitants <dbl>, death_rate <dbl>
 
 #Dados da CSSEGISandData
 wor <- CSSEGISandData()
 wor
-#> # A tibble: 13,213 x 7
-#> # Groups:   Country.Region [181]
+#> # A tibble: 16,650 x 7
+#> # Groups:   Country.Region [185]
 #>    Country.Region data         Lat  Long casosAcumulados obitosAcumulado
 #>    <chr>          <date>     <dbl> <dbl>           <int>           <int>
 #>  1 Afghanistan    2020-01-22    33    65               0               0
@@ -99,7 +99,7 @@ wor
 #>  8 Afghanistan    2020-01-29    33    65               0               0
 #>  9 Afghanistan    2020-01-30    33    65               0               0
 #> 10 Afghanistan    2020-01-31    33    65               0               0
-#> # … with 13,203 more rows, and 1 more variable: recuperadosAcumulado <int>
+#> # … with 16,640 more rows, and 1 more variable: recuperadosAcumulado <int>
 ```
 
 Os `data.frames` já vem em um formato que pode ser utilizado com todas
@@ -107,7 +107,7 @@ as outras ferramentas disponíveis em R, por exemplo, o `ggplot2`.
 
 ``` r
 library(ggplot2)
-ggplot(est, aes(x = data, y = casosNovos, group = estado, color = regiao)) +
+ggplot(est, aes(x = date, y = casosNovos, group = estado, color = regiao)) +
   geom_line() +
   scale_x_date(limits = c(as.Date("2020-03-15"),NA)) 
 ```
