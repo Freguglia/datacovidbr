@@ -11,7 +11,7 @@
 #' 
 #' @return A `tibble` object.
 #' @export
-brasilio <- function(silent = !interactive(), cache = TRUE, invalidate_after = 12){
+brasilio <- function(silent = !interactive(), cache = FALSE, invalidate_after = 12){
   if(cache){
     # Check if there is cached data
     if(file.exists(file.path(".datacovidbr", "brasilio.csv")) &&
