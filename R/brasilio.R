@@ -10,6 +10,8 @@
 #' @param invalidate_after The time (in hours) to invalidate the cache.
 #' 
 #' @return A `tibble` object.
+#' 
+#' @importFrom utils write.csv
 #' @export
 brasilio <- function(silent = !interactive(), cache = FALSE, invalidate_after = 12){
   if(cache){

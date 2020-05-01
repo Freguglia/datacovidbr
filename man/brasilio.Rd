@@ -4,7 +4,7 @@
 \alias{brasilio}
 \title{brasil.io covid data}
 \usage{
-brasilio(silent = !interactive(), cache = TRUE, invalidate_after = 12)
+brasilio(silent = !interactive(), cache = FALSE, invalidate_after = 12)
 }
 \arguments{
 \item{silent}{\code{logical} indicating if messages should be hidden.}
