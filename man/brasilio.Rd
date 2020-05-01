@@ -4,10 +4,14 @@
 \alias{brasilio}
 \title{brasil.io covid data}
 \usage{
-brasilio(silent = !interactive())
+brasilio(silent = !interactive(), cache = TRUE, invalidate_after = 12)
 }
 \arguments{
 \item{silent}{\code{logical} indicating if messages should be hidden.}
+
+\item{cache}{\code{logical} indicating if cached results should be used (if they exist).}
+
+\item{invalidate_after}{The time (in hours) to invalidate the cache.}
 }
 \value{
 A \code{tibble} object.
