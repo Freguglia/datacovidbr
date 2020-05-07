@@ -13,7 +13,7 @@
 #' 
 #' @return A `tibble` object.
 #' 
-#' @importFrom dplyr summarise group_by left_join
+#' @importFrom dplyr summarise group_by left_join ungroup
 #' @importFrom magrittr %>%
 #' @importFrom tidyselect starts_with
 #' @export
@@ -62,12 +62,14 @@ CSSEGISandData <- function(by_country = TRUE, silent = !interactive()){
   if(by_country){
     return(df_cases %>%
              left_join(df_deaths, by = c("Country.Region", "data", "Lat", "Long")) %>%
-             left_join(df_recovered, by = c("Country.Region", "data", "Lat", "Long")))
+             left_join(df_recovered, by = c("Country.Region", "data", "Lat", "Long")) %>%
+             ungroup())
   }
   else {
     return(df_cases %>%
              left_join(df_deaths, by = c("Province.State", "Country.Region", "data", "Lat", "Long")) %>%
-             left_join(df_recovered, by = c("Province.State","Country.Region", "data", "Lat", "Long")))
+             left_join(df_recovered, by = c("Province.State","Country.Region", "data", "Lat", "Long")) %>%
+             ungroup())
   }
 }
 
@@ -92,8 +94,9 @@ CSSEGISandData_us <- function(silent = !interactive()){
   
   if(!silent) cat("Latest Update: ", as.character(max(df_cases$date)), "\n")
   
-
-    return(df_cases %>%
-             left_join(df_deaths, by = c("UID", "iso2", "iso3", "code3", "FIPS", "Admin2", "Province_State",
-                                         "Country_Region", "Lat", "Long_", "date", "Combined_Key")))
+  
+  return(df_cases %>%
+           left_join(df_deaths, by = c("UID", "iso2", "iso3", "code3", "FIPS", "Admin2", "Province_State",
+                                       "Country_Region", "Lat", "Long_", "date", "Combined_Key")) %>%
+           ungroup())
 }
