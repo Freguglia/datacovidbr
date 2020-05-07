@@ -16,7 +16,7 @@
 #' @importFrom tibble as_tibble
 #' 
 #' @export
-registro_civil <- function(state = "SP", city_id = "all"){
+registro_civil <- function(state = "all", city_id = "all"){
   if(length(city_id) > 1){stop("Um 'city_id' por vez, ou 'all' para todas as cidades to estado.")}
   if(length(state) > 1){stop("Um 'state' por vez, ou 'all' para o brasil inteiro.")}
   out <- data.frame()
