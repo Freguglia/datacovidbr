@@ -1,3 +1,7 @@
+# datacovidbr 0.0.4
+
+* Added new source from https://transparencia.registrocivil.org.br/registral-covid available at `registro_civil()`.
+
 # datacovidbr 0.0.3
 
 * `brMinisterioSaude()` rewritten because old source no longer works.
