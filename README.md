@@ -12,19 +12,23 @@ status](https://travis-ci.org/Freguglia/datacovidbr.svg?branch=master)](https://
 O `datacovidbr` é um pacote em R com o objetivo de facilitar a
 importação e leitura dos dados da COVID-19 de fontes brasileiras e
 mundiais, automatizando os mecanismos de análise desses dados em R. No
-momento os dados disponíveis são os do Ministério da Saúde
-(<https://covid.saude.gov.br/>) para dados brasileiros por estados e
-regiões, os do repositório [Brasil.io](https://brasil.io/home) para
-dados brasileiros por município e os do repositório
-[CSSEGISandData/COVID-19](https://github.com/CSSEGISandData/COVID-19)
-mantido pela Johns Hopkins University Center for Systems Science and
-Engineering (JHU CSSE).
+momento as fontes de dados disponíveis são:
 
-As funções importam os dados atualizados diretamente, assim você não
-precisa baixar os arquivos todos os dias e ler do seu próprio computador
-ou ter o trabalho de automatizar isso :) Também é feito algum
-pré-processamento para que a estrutura dos dados da `CSSEGISandData`
-fique mais parecida com a do Ministério da Saúde.
+  - Dados do [Ministério da Saúde](https://covid.saude.gov.br/) para
+    dados brasileiros por estados e regiões.
+  - Repositório [Brasil.io](https://brasil.io/home) para dados
+    brasileiros por município.
+  - Repositório
+    [CSSEGISandData/COVID-19](https://github.com/CSSEGISandData/COVID-19)
+    mantido pela Johns Hopkins University Center for Systems Science and
+    Engineering (JHU CSSE).
+  - Dados do [infoGripe](http://info.gripe.fiocruz.br/).
+  - Dados do Painel COVID Registral do [Registro
+    Civil](https://transparencia.registrocivil.org.br/registral-covid).
+
+Algumas funções fazem download de fontes de dados quando estão
+disponíveis e fazem um mínimo de pré-processamento, outras obtém os
+dados das fontes por web-scraping.
 
 ## Instalação
 
@@ -41,14 +45,15 @@ devtools::install_github("Freguglia/datacovidbr")
 ## Exemplo
 
 Os dados podem ser carregados com as funções `brMinisterioSaude()`,
-`brasilio()`, `CSSEGISandData()` e `infoGripe()`:
+`brasilio()`, `CSSEGISandData()`, `infoGripe()`, `registro_civil()` e
+`registro_civil_diario()`:
 
 ``` r
 library(datacovidbr)
 # Dados do Ministério da Saúde
 est <- brMinisterioSaude()
 est
-#> # A tibble: 2,214 x 7
+#> # A tibble: 2,646 x 7
 #>    regiao estado date       casosNovos casosAcumulados obitosNovos
 #>    <chr>  <chr>  <date>          <int>           <int>       <int>
 #>  1 Norte  RO     2020-01-30          0               0           0
@@ -61,32 +66,31 @@ est
 #>  8 Norte  RO     2020-02-06          0               0           0
 #>  9 Norte  RO     2020-02-07          0               0           0
 #> 10 Norte  RO     2020-02-08          0               0           0
-#> # … with 2,204 more rows, and 1 more variable: obitosAcumulados <int>
+#> # … with 2,636 more rows, and 1 more variable: obitosAcumulados <int>
 
 # Dados do Brasil.io
 mun <- brasilio()
 mun
-#> # A tibble: 22,803 x 11
+#> # A tibble: 55,906 x 11
 #>    date       state city  place_type confirmed deaths is_last estimated_popul…
 #>    <date>     <chr> <chr> <chr>          <int>  <int> <lgl>              <int>
-#>  1 2020-04-20 AC    "Acr… city              12      0 TRUE               15256
-#>  2 2020-04-20 AC    "Buj… city               1      0 TRUE               10266
-#>  3 2020-04-20 AC    "Cru… city               5      0 TRUE               88376
-#>  4 2020-04-20 AC    "Plá… city              19      1 TRUE               19761
-#>  5 2020-04-20 AC    "Por… city               1      0 TRUE               18504
-#>  6 2020-04-20 AC    "Rio… city             136      7 TRUE              407319
-#>  7 2020-04-20 AC    "Sen… city               2      0 TRUE               23024
-#>  8 2020-04-20 AC    ""    state            176      8 TRUE              881935
-#>  9 2020-04-20 AL    "Ara… city               1      0 TRUE              231747
-#> 10 2020-04-20 AL    "Boc… city               1      0 TRUE               27281
-#> # … with 22,793 more rows, and 3 more variables: city_ibge_code <int>,
+#>  1 2020-05-06 AC    Acre… city              15      1 TRUE               15256
+#>  2 2020-05-06 AC    Assi… city               1      0 TRUE                7417
+#>  3 2020-05-06 AC    Buja… city               3      0 TRUE               10266
+#>  4 2020-05-06 AC    Cruz… city              26      0 TRUE               88376
+#>  5 2020-05-06 AC    Feijó city               1      0 TRUE               34780
+#>  6 2020-05-06 AC    Impo… city               0      0 TRUE                  NA
+#>  7 2020-05-06 AC    Mânc… city               2      0 TRUE               18977
+#>  8 2020-05-06 AC    Plác… city              53      3 TRUE               19761
+#>  9 2020-05-06 AC    Port… city               3      0 TRUE               18504
+#> 10 2020-05-06 AC    Rio … city             808     31 TRUE              407319
+#> # … with 55,896 more rows, and 3 more variables: city_ibge_code <int>,
 #> #   confirmed_per_100k_inhabitants <dbl>, death_rate <dbl>
 
 #Dados da CSSEGISandData
 wor <- CSSEGISandData()
 wor
-#> # A tibble: 16,650 x 7
-#> # Groups:   Country.Region [185]
+#> # A tibble: 19,822 x 7
 #>    Country.Region data         Lat  Long casosAcumulados obitosAcumulado
 #>    <chr>          <date>     <dbl> <dbl>           <int>           <int>
 #>  1 Afghanistan    2020-01-22    33    65               0               0
@@ -99,7 +103,7 @@ wor
 #>  8 Afghanistan    2020-01-29    33    65               0               0
 #>  9 Afghanistan    2020-01-30    33    65               0               0
 #> 10 Afghanistan    2020-01-31    33    65               0               0
-#> # … with 16,640 more rows, and 1 more variable: recuperadosAcumulado <int>
+#> # … with 19,812 more rows, and 1 more variable: recuperadosAcumulado <int>
 ```
 
 Os `data.frames` já vem em um formato que pode ser utilizado com todas

@@ -19,9 +19,15 @@ knitr::opts_chunk$set(
 [![build status](https://travis-ci.org/Freguglia/datacovidbr.svg?branch=master)](https://travis-ci.org/Freguglia/datacovidbr)
 <!-- badges: end -->
 
-O `datacovidbr` é um pacote em R com o objetivo de facilitar a importação e leitura dos dados da COVID-19 de fontes brasileiras e mundiais, automatizando os mecanismos de análise desses dados em R. No momento os dados disponíveis são os do Ministério da Saúde (https://covid.saude.gov.br/) para dados brasileiros por estados e regiões, os do repositório [Brasil.io](https://brasil.io/home) para dados brasileiros por município e os do repositório [CSSEGISandData/COVID-19](https://github.com/CSSEGISandData/COVID-19) mantido pela Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE).
+O `datacovidbr` é um pacote em R com o objetivo de facilitar a importação e leitura dos dados da COVID-19 de fontes brasileiras e mundiais, automatizando os mecanismos de análise desses dados em R. No momento as fontes de dados disponíveis são: 
 
-As funções importam os dados atualizados diretamente, assim você não precisa baixar os arquivos todos os dias e ler do seu próprio computador ou ter o trabalho de automatizar isso :) Também é feito algum pré-processamento para que a estrutura dos dados da `CSSEGISandData` fique mais parecida com a do Ministério da Saúde.
+  * Dados do [Ministério da Saúde](https://covid.saude.gov.br/) para dados brasileiros por estados e regiões.
+  * Repositório [Brasil.io](https://brasil.io/home) para dados brasileiros por município.
+  * Repositório [CSSEGISandData/COVID-19](https://github.com/CSSEGISandData/COVID-19) mantido pela Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE).
+  * Dados do [infoGripe](http://info.gripe.fiocruz.br/).
+  * Dados do Painel COVID Registral do [Registro Civil](https://transparencia.registrocivil.org.br/registral-covid).
+
+Algumas funções fazem download de fontes de dados quando estão disponíveis e fazem um mínimo de pré-processamento, outras obtém os dados das fontes por web-scraping.
 
 ## Instalação
 
@@ -34,7 +40,7 @@ devtools::install_github("Freguglia/datacovidbr")
 
 ## Exemplo
 
-Os dados podem ser carregados com as funções `brMinisterioSaude()`, `brasilio()`, `CSSEGISandData()` e `infoGripe()`:
+Os dados podem ser carregados com as funções `brMinisterioSaude()`, `brasilio()`, `CSSEGISandData()`, `infoGripe()`, `registro_civil()` e `registro_civil_diario()`:
 
 ```{r example}
 library(datacovidbr)
