@@ -2,9 +2,12 @@
 % Please edit documentation in R/registro_civil.R
 \name{registro_civil}
 \alias{registro_civil}
+\alias{registro_civil_diario}
 \title{Dados de https://transparencia.registrocivil.org.br/}
 \usage{
 registro_civil(state = "all", city_id = "all")
+
+registro_civil_diario(state = "all", city_id = "all")
 }
 \arguments{
 \item{state}{Estado no padrão \code{"SP"} ou \code{"all"} para o Brasil inteiro.}
