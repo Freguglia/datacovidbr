@@ -11,19 +11,17 @@
 #' 
 #' @return A `tibble` object.
 #' 
-#' @importFrom utils write.csv
 #' @export
 brasilio <- function(silent = !interactive(), cache = FALSE, invalidate_after = 12){
   if(cache){
     # Check if there is cached data
-    if(file.exists(file.path(".datacovidbr", "brasilio.csv")) &&
+    if(file.exists(file.path(".datacovidbr", "brasilio.RDS")) &&
        file.exists(file.path(".datacovidbr", "brasilio_meta.txt"))){
       # If there is, check time difference
       latest_update_time <- lubridate::as_datetime(
         readLines(file.path(".datacovidbr","brasilio_meta.txt")))
       if(lubridate::now(tz = "UTC") - latest_update_time < lubridate::dhours(invalidate_after)){
-        mun <- read.csv(file.path(".datacovidbr", "brasilio.csv"))
-        mun$date <- as.Date(mun$date)
+        mun <- readRDS(file.path(".datacovidbr", "brasilio.RDS"))
         return(tibble::as_tibble(mun))
       }
     }
@@ -36,7 +34,7 @@ brasilio <- function(silent = !interactive(), cache = FALSE, invalidate_after = 
   if(!silent) cat("Latest Update: ", as.character(max(mun$date)), "\n")
   if(cache){
     dir.create(".datacovidbr", showWarnings = FALSE)
-    write.csv(mun, file = file.path(".datacovidbr", "brasilio.csv"))
+    saveRDS(mun, file = file.path(".datacovidbr", "brasilio.RDS"))
     writeLines(as.character(lubridate::now(tz = "UTC")), con = file.path(".datacovidbr", "brasilio_meta.txt"))
   }
   return(tibble::as_tibble(mun))
