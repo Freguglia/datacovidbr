@@ -1,3 +1,8 @@
+file_ext <- function(file){ 
+    ext <- strsplit(basename(file), split="\\.")[[1]]
+    return(ext[-1])
+} 
+
 #' @name brMinisterioSaude
 #' @title Brazilian Health Ministry COVID data
 #' 
@@ -12,7 +17,7 @@
 #' 
 #' @importFrom glue glue
 #' @importFrom methods is
-#' @importFrom httr GET add_headers content
+#' @importFrom httr GET add_headers content write_disk
 #' @export
 brMinisterioSaude <- function(silent = !interactive()){
   df <- "not_found"
@@ -24,10 +29,17 @@ brMinisterioSaude <- function(silent = !interactive()){
     '[['(1) %>%
     '[['("arquivo") %>%
     '[['("url")
-  df <- tryCatch({
-    suppressWarnings(
-      read.csv(link, sep = ",", stringsAsFactors = FALSE, encoding = "UTF-8", check.names = FALSE))
-  }, error = function(er) "not_found")
+
+  if(file_ext(link) == "csv"){
+    df <- tryCatch({
+      suppressWarnings(
+        read.csv(link, sep = ",", stringsAsFactors = FALSE, encoding = "UTF-8", check.names = FALSE))
+          }, error = function(er) "not_found")
+  } else if(file_ext(link) == "xlsx"){
+    httr::GET(link, write_disk(tf <- tempfile(fileext = ".xlsx")))
+    df <- readxl::read_xlsx(tf, sheet = 1, progress = !silent)
+  }
+
 
   if(!is(df, "data.frame")) stop("The file is not available at the previous address.
                                  Consider updating the datacovidbr")
