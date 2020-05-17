@@ -25,7 +25,8 @@ O `datacovidbr` é um pacote em R com o objetivo de facilitar a importação e l
   * Repositório [Brasil.io](https://brasil.io/home) para dados brasileiros por município.
   * Repositório [CSSEGISandData/COVID-19](https://github.com/CSSEGISandData/COVID-19) mantido pela Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE).
   * Dados do [infoGripe](http://info.gripe.fiocruz.br/).
-  * Dados do Painel COVID Registral do [Registro Civil](https://transparencia.registrocivil.org.br/registral-covid).
+
+<!-- * Dados do Painel COVID Registral do [Registro Civil](https://transparencia.registrocivil.org.br/registral-covid). -->
 
 Algumas funções fazem download de fontes de dados quando estão disponíveis e fazem um mínimo de pré-processamento, outras obtém os dados das fontes por web-scraping.
 
@@ -40,7 +41,7 @@ devtools::install_github("Freguglia/datacovidbr")
 
 ## Exemplo
 
-Os dados podem ser carregados com as funções `brMinisterioSaude()`, `brasilio()`, `CSSEGISandData()`, `infoGripe()`, `registro_civil()` e `registro_civil_diario()`:
+Os dados podem ser carregados com as funções `brMinisterioSaude()`, `brasilio()`, `CSSEGISandData()`, `infoGripe()`:
 
 ```{r example}
 library(datacovidbr)
@@ -62,7 +63,7 @@ Os `data.frames` já vem em um formato que pode ser utilizado com todas as outra
 
 ```{r, warning = FALSE, message = FALSE}
 library(ggplot2)
-ggplot(est, aes(x = date, y = casosNovos, group = estado, color = regiao)) +
+ggplot(est[est$regiao != "Brasil",], aes(x = date, y = casosAcumulado, group = estado, color = regiao)) +
   geom_line() +
   scale_x_date(limits = c(as.Date("2020-03-15"),NA)) 
 ```
