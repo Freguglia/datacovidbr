@@ -1,6 +1,6 @@
-# datacovidbr 0.0.4
+<!--# datacovidbr 0.0.4
 
-* Added new source from https://transparencia.registrocivil.org.br/registral-covid available at `registro_civil()`.
+* Added new source from https://transparencia.registrocivil.org.br/registral-covid available at `registro_civil()`.-->
 
 # datacovidbr 0.0.3
 

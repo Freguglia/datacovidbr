@@ -45,6 +45,9 @@ brMinisterioSaude <- function(silent = !interactive()){
                                  Consider updating the datacovidbr")
   colnames(df)[colnames(df) == "data"] <- "date"
   df$date <- as.Date(df$date)
+  df$casosAcumulado <- as.numeric(df$casosAcumulado)
+  df$obitosAcumulado <- as.numeric(df$obitosAcumulado)
+  df$populacaoTCU2019 <- as.numeric(df$populacaoTCU2019)
   if(!silent) cat("Latest Update: ", as.character(max(df$date)), "\n")
   return(tibble::as_tibble(df))
 }

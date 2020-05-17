@@ -63,7 +63,8 @@ Os `data.frames` já vem em um formato que pode ser utilizado com todas as outra
 
 ```{r, warning = FALSE, message = FALSE}
 library(ggplot2)
-ggplot(est[est$regiao != "Brasil",], aes(x = date, y = casosAcumulado, group = estado, color = regiao)) +
+ggplot(est[est$regiao != "Brasil" & is.na(est$municipio) & is.na(est$codmun),],
+       aes(x = date, y = casosAcumulado, group = estado, color = regiao)) +
   geom_line() +
   scale_x_date(limits = c(as.Date("2020-03-15"),NA)) 
 ```
