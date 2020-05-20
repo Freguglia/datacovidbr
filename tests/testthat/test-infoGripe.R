@@ -1,3 +1,3 @@
 test_that("infoGripe works", {
-  expect_is(infoGripe("São Paulo"), "list")
+  expect_is(infoGripe(), "tbl_df")
 })
