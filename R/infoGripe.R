@@ -4,8 +4,6 @@
 #' @description Extracts the data from http://info.gripe.fiocruz.br/ displayed
 #' when the databases `SRAGCOVID` and `OBITOCOVID` are selected.
 #' 
-#' @param state `character` vector with UFs to include.
-#' 
 #' @return A `list` with elements `casos` e `obitos`, containing `tibbles`
 #' with the distribution of cases and deaths, respectively, by week and
 #' age.

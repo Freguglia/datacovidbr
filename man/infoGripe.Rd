@@ -4,10 +4,7 @@
 \alias{infoGripe}
 \title{Data from http://info.gripe.fiocruz.br/}
 \usage{
-infoGripe(state = NULL)
-}
-\arguments{
-\item{state}{\code{character} vector with UFs to include.}
+infoGripe()
 }
 \value{
 A \code{list} with elements \code{casos} e \code{obitos}, containing \code{tibbles}
