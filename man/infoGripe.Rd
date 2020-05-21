@@ -12,6 +12,9 @@ with the distribution of cases and deaths, respectively, by week and
 age.
 }
 \description{
-Extracts the data from http://info.gripe.fiocruz.br/ displayed
-when the databases \code{SRAGCOVID} and \code{OBITOCOVID} are selected.
+Extracts the data used in http://info.gripe.fiocruz.br/.
+A description of the dataset is available at the link in the references.
+}
+\references{
+https://gitlab.procc.fiocruz.br/mave/repo/-/tree/master/Dados/InfoGripe
 }
