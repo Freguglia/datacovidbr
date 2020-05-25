@@ -13,7 +13,7 @@ brMinisterioSaude(silent = !interactive())
 A \code{tibble} object.
 }
 \description{
-Extracts updated data from the page of Brazilian Health Ministry
+Extracts updated data from Brazilian Health Ministry website
 (https://covid.saude.gov.br/)
 by download the file in \code{.csv} format available and loading it into a comprehensive
 \code{tibble} object.

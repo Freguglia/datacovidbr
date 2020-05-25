@@ -6,7 +6,7 @@ file_ext <- function(file){
 #' @name brMinisterioSaude
 #' @title Brazilian Health Ministry COVID data
 #' 
-#' @description Extracts updated data from the page of Brazilian Health Ministry 
+#' @description Extracts updated data from Brazilian Health Ministry website 
 #' (https://covid.saude.gov.br/)
 #' by download the file in `.csv` format available and loading it into a comprehensive
 #' `tibble` object.
@@ -38,20 +38,26 @@ brMinisterioSaude <- function(silent = !interactive()){
   } else if(file_ext(link) == "xlsx"){
       httr::GET(link, write_disk(tf <- tempfile(fileext = ".xlsx")))
       df <- suppressWarnings(
-        readxl::read_xlsx(tf, sheet = 1, progress = !silent,
-          col_types=c("text", "text", "text", "numeric", "numeric",
-            "numeric", "text","text", "numeric", "numeric", "numeric",
-            "numeric", "numeric", "numeric")))
+        readxl::read_xlsx(tf, sheet = 1, progress = !silent, col_types = "text"))
   }
 
 
   if(!is(df, "data.frame")) stop("The file is not available at the previous address.
-                                 Consider updating the datacovidbr")
-  colnames(df)[colnames(df) == "data"] <- "date"
-  df$date <- as.Date(df$date)
-  df$casosAcumulado <- as.numeric(df$casosAcumulado)
-  df$obitosAcumulado <- as.numeric(df$obitosAcumulado)
-  df$populacaoTCU2019 <- as.numeric(df$populacaoTCU2019)
+                                 Consider updating datacovidbr.")
+  dfvars <- colnames(df) 
+  if("data" %in% dfvars){
+    colnames(df)[colnames(df) == "data"] <- "date"
+    df$date <- as.Date(df$date)
+  }
+  if("casosAcumulado" %in% dfvars) df$casosAcumulado <- as.integer(df$casosAcumulado)
+  if("obitosAcumulado" %in% dfvars) df$obitosAcumulado <- as.integer(df$obitosAcumulado)
+  if("populacaoTCU2019" %in% dfvars) df$populacaoTCU2019 <- as.integer(df$populacaoTCU2019)
+  if("Recuperadosnovos" %in% dfvars) df$Recuperadosnovos <- as.integer(df$Recuperadosnovos)
+  if("emAcompanhamentoNovos" %in% dfvars) df$emAcompanhamentoNovos <- as.integer(df$emAcompanhamentoNovos)
+  if("CodRegiaoSaude" %in% dfvars) df$CodRegiaoSaude <- as.integer(df$CodRegiaoSaude)
+  if("coduf" %in% dfvars)  df$coduf <- as.integer(df$coduf)
+  if("codmun" %in% dfvars) df$codmun <- as.integer(df$codmun)
+  
   if(!silent) cat("Latest Update: ", as.character(max(df$date)), "\n")
   return(tibble::as_tibble(df))
 }
