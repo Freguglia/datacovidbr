@@ -37,7 +37,11 @@ brMinisterioSaude <- function(silent = !interactive()){
           }, error = function(er) "not_found")
   } else if(file_ext(link) == "xlsx"){
       httr::GET(link, write_disk(tf <- tempfile(fileext = ".xlsx")))
-      df <- suppressWarnings(readxl::read_xlsx(tf, sheet = 1, progress = !silent))
+      df <- suppressWarnings(
+        readxl::read_xlsx(tf, sheet = 1, progress = !silent,
+          col_types=c("text", "text", "text", "numeric", "numeric",
+            "numeric", "text","text", "numeric", "numeric", "numeric",
+            "numeric", "numeric", "numeric")))
   }
 
 
