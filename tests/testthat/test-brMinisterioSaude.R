@@ -4,6 +4,7 @@ test_that("Ministério da Saúde", {
   expect_setequal(colnames(a), c("regiao", "estado", "municipio", "coduf",
                                  "codmun", "codRegiaoSaude", "nomeRegiaoSaude",
                                  "date", "semanaEpi", "Recuperadosnovos", 
-                                 "populacaoTCU2019", "casosAcumulado", "obitosAcumulado",
+                                 "populacaoTCU2019", "casosAcumulado","casosNovos",
+                                 "obitosAcumulado", "obitosNovos",
                                  "Recuperadosnovos", "emAcompanhamentoNovos"))
 })
