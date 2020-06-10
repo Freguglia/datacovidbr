@@ -8,7 +8,7 @@ file_ext <- function(file){
 #' 
 #' @description Extracts updated data from Brazilian Health Ministry website 
 #' (https://covid.saude.gov.br/)
-#' by download the file in `.csv` format available and loading it into a comprehensive
+#' by downloading the file in `.csv`/`.xlsx` format available and loading it into a comprehensive
 #' `tibble` object.
 #' 
 #' @param silent `logical` indicating if messages should be hidden.
@@ -47,13 +47,17 @@ brMinisterioSaude <- function(silent = !interactive()){
   dfvars <- colnames(df) 
   if("data" %in% dfvars){
     colnames(df)[colnames(df) == "data"] <- "date"
-    df$date <- as.Date(df$date)
+    df$date <- as.Date(as.numeric(df$date), origin = "1899-12-30")
   }
   if("casosAcumulado" %in% dfvars) df$casosAcumulado <- as.integer(df$casosAcumulado)
   if("casosNovos" %in% dfvars) df$casosNovos <- as.integer(df$casosNovos)
   if("obitosAcumulado" %in% dfvars) df$obitosAcumulado <- as.integer(df$obitosAcumulado)
   if("obitosNovos" %in% dfvars) df$obitosNovos <- as.integer(df$obitosNovos)
-  if("populacaoTCU2019" %in% dfvars) df$populacaoTCU2019 <- as.integer(df$populacaoTCU2019)
+  if("populacaoTCU2019" %in% dfvars) {
+    df$populacaoTCU2019 <- gsub("\\([^)]*\\)", "", df$populacaoTCU2019)
+    df$populacaoTCU2019 <- gsub("\\.", "", df$populacaoTCU2019)
+    df$populacaoTCU2019 <- as.integer(df$populacaoTCU2019)
+  }
   if("Recuperadosnovos" %in% dfvars) df$Recuperadosnovos <- as.integer(df$Recuperadosnovos)
   if("emAcompanhamentoNovos" %in% dfvars) df$emAcompanhamentoNovos <- as.integer(df$emAcompanhamentoNovos)
   if("CodRegiaoSaude" %in% dfvars) df$CodRegiaoSaude <- as.integer(df$CodRegiaoSaude)

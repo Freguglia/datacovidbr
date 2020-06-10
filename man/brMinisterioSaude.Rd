@@ -15,6 +15,6 @@ A \code{tibble} object.
 \description{
 Extracts updated data from Brazilian Health Ministry website
 (https://covid.saude.gov.br/)
-by download the file in \code{.csv} format available and loading it into a comprehensive
+by downloading the file in \code{.csv}/\code{.xlsx} format available and loading it into a comprehensive
 \code{tibble} object.
 }
