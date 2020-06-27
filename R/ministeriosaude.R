@@ -64,7 +64,8 @@ brMinisterioSaude <- function(silent = !interactive()){
   if("coduf" %in% dfvars)  df$coduf <- as.integer(df$coduf)
   if("codmun" %in% dfvars) df$codmun <- as.integer(df$codmun)
   if("semanaEpi" %in% dfvars) df$semanaEpi <- as.integer(df$semanaEpi)
-  
+  if("FgMetro" %in% dfvars) df$FgMetro <- as.logical(as.numeric(df$FgMetro))
+
   if(!silent) cat("Latest Update: ", as.character(max(df$date)), "\n")
   return(tibble::as_tibble(df))
 }
