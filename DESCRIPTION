@@ -19,6 +19,7 @@ Imports:
     tidyr (>= 1.0.0),
     tidyselect,
     magrittr,
+    readr,
     dplyr,
     methods,
     httr,
