@@ -29,7 +29,7 @@ brasilio <- function(silent = !interactive(), cache = FALSE, invalidate_after = 
     
   mun <- readr::read_csv("https://data.brasil.io/dataset/covid19/caso.csv.gz")
   mun$date <- as.Date(mun$date)
-  mun$is_last <- ifelse(mun$is_last == "True", TRUE, FALSE)
+  #mun$is_last <- ifelse(mun$is_last == "True", TRUE, FALSE)
   if(!silent) cat("Latest Update: ", as.character(max(mun$date)), "\n")
   if(cache){
     dir.create(".datacovidbr", showWarnings = FALSE)
