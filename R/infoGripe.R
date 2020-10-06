@@ -1,17 +1,17 @@
-#' @name infoGripe
-#' @title Data from http://info.gripe.fiocruz.br/
-#' 
-#' @description Extracts the data used in http://info.gripe.fiocruz.br/.
-#' A description of the dataset is available at the link in the references.
-#' 
-#' @return A `list` with elements `casos` e `obitos`, containing `tibbles`
-#' with the distribution of cases and deaths, respectively, by week and
-#' age.
-#'
-#' @references https://gitlab.procc.fiocruz.br/mave/repo/-/tree/master/Dados/InfoGripe
-#' 
-#' @importFrom utils URLencode
-#' @export
+# @name infoGripe
+# @title Data from http://info.gripe.fiocruz.br/
+# 
+# @description Extracts the data used in http://info.gripe.fiocruz.br/.
+# A description of the dataset is available at the link in the references.
+# 
+# @return A `list` with elements `casos` e `obitos`, containing `tibbles`
+# with the distribution of cases and deaths, respectively, by week and
+# age.
+#
+# @references https://gitlab.procc.fiocruz.br/mave/repo/-/tree/master/Dados/InfoGripe
+# 
+# @importFrom utils URLencode
+# @export
 infoGripe <- function(){
   df <- read.csv("https://gitlab.procc.fiocruz.br/mave/repo/-/raw/master/Dados/InfoGripe/serie_temporal_com_estimativas_recentes.csv",
                  sep = ";")
