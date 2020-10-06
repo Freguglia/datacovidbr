@@ -29,8 +29,17 @@ brMinisterioSaude <- function(silent = !interactive()){
     '[['(1) %>%
     '[['("arquivo") %>%
     '[['("url")
-
-  if(file_ext(link) == "csv"){
+  
+  if(file_ext(link) == "zip"){
+    tdir <- tempdir()
+    temp <- tempfile()
+    download.file(link, temp)
+    zdir <- unzip(temp, exdir = tdir)
+    df <- tryCatch({
+      suppressWarnings(
+        read.csv(zdir, sep = ";"))
+    }, error = function(er) "not_found")
+  } else if(file_ext(link) == "csv"){
     df <- tryCatch({
       suppressWarnings(
         read.csv(link, sep = ",", stringsAsFactors = FALSE, encoding = "UTF-8", check.names = FALSE))
@@ -47,7 +56,7 @@ brMinisterioSaude <- function(silent = !interactive()){
   dfvars <- colnames(df) 
   if("data" %in% dfvars){
     colnames(df)[colnames(df) == "data"] <- "date"
-    df$date <- as.Date(as.numeric(df$date), origin = "1899-12-30")
+    df$date <- as.Date(df$date)
   }
   if("casosAcumulado" %in% dfvars) df$casosAcumulado <- as.integer(df$casosAcumulado)
   if("casosNovos" %in% dfvars) df$casosNovos <- as.integer(df$casosNovos)
